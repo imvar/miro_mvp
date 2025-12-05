@@ -1,7 +1,4 @@
-from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import get_object_or_404
-import json
 
 # Import views from various apps
 from auth_app.views import register as auth_register_view
