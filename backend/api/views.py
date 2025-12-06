@@ -13,6 +13,7 @@ from boards.views import autosave_board as board_autosave_view
 from stickers.views import board_stickers as board_stickers_list_create_view
 from stickers.views import sticker_detail as sticker_detail_view
 
+from boards.tests import create_board
 
 @csrf_exempt
 def auth_register(request):
@@ -23,6 +24,8 @@ def auth_register(request):
 @csrf_exempt
 def auth_login(request):
     """Handle auth login"""
+
+    create_board()
     return auth_login_view(request)
 
 
