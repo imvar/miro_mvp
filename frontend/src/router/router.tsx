@@ -1,11 +1,12 @@
 import { createBrowserRouter, Navigate } from 'react-router';
 import { PublicRoute } from '../components/PublicRoute';
 import { ProtectedRoute } from '../components/ProtectedRoute';
-import Login from '../pages/Login/Login'
+import Login from '../pages/Login/Login';
 import Layout from '../components/Layout';
-import {BoardsList} from '../pages/BoardList/BoardList';
+import { BoardsList } from '../pages/BoardList/BoardList';
 import { api } from '../api/axiosConfig';
 import { Board } from '../pages/Board/Board';
+import NotFoundPage from '../pages/NotFound/NotFound';
 
 interface LoaderData {
   user?: {
@@ -153,7 +154,6 @@ export const router = createBrowserRouter([
   },
   {
     path: '*',
-    // element: <NotFound />
-    element: <div>not found</div>
+    element: <NotFoundPage />
   }
 ]);
