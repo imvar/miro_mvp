@@ -24,8 +24,6 @@ def auth_register(request):
 @csrf_exempt
 def auth_login(request):
     """Handle auth login"""
-
-    create_board()
     return auth_login_view(request)
 
 
