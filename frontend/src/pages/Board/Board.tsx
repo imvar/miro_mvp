@@ -80,7 +80,7 @@ export function Board() {
     setLoading(true);
     setError(null);
     try {
-      const response = await api.get(`/api/boards/${boardId}`);
+      const response = await api.get(`/api/boards/${boardId}/stickers`);
       console.log(response.data);
       
       const data = await response.data;

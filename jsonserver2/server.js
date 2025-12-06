@@ -154,7 +154,7 @@ server.get('/api/boards', (req, res) => {
 });
 
 // Получение конкретной доски со стикерами
-server.get('/api/boards/:id', (req, res) => {
+server.get('/api/boards/:id/stickers', (req, res) => {
   const db = router.db;
   const boardId = parseInt(req.params.id);
   const userId = req.user.id;
