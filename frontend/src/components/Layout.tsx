@@ -141,7 +141,7 @@ export function Layout() {
           </Group>
 
           <Group>
-            <Tooltip label="Поиск">
+             {/* <Tooltip label="Поиск">
               <ActionIcon
                 variant="light"
                 size="lg"
@@ -149,7 +149,7 @@ export function Layout() {
               >
                 <IconSearch size={20} />
               </ActionIcon>
-            </Tooltip>
+            </Tooltip> */}
 
             {/* <Tooltip label="Уведомления">
               <ActionIcon
