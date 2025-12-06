@@ -7,7 +7,7 @@ import json
 from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import make_password, check_password
 from .forms import RegisterForm
-from .models import User
+from .models import Users
 
 
 def register(request):
@@ -30,8 +30,8 @@ def login(request):
         login_value = request.POST.get("login")
         password = request.POST.get("password")
         try:
-            user = User.objects.get(login=login_value)
-        except User.DoesNotExist:
+            user = Users.objects.get(username=login_value)
+        except Users.DoesNotExist:
             user = None
         if user and check_password(password, user.password):
             # здесь обычно создают сессию, куку
@@ -39,4 +39,3 @@ def login(request):
         else:
             error = "Неверный логин или пароль"
     return render(request, "auth_app/login.html", {"error": error})
-
