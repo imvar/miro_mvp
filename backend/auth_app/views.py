@@ -7,7 +7,7 @@ import json
 from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import make_password, check_password
 from .forms import RegisterForm
-from .models import User
+from .models import Users
 
 
 def register(request):
@@ -30,7 +30,7 @@ def login(request):
         login_value = request.POST.get("login")
         password = request.POST.get("password")
         try:
-            user = User.objects.get(login=login_value)
+            user = Users.objects.get(login=login_value)
         except User.DoesNotExist:
             user = None
         if user and check_password(password, user.password):
