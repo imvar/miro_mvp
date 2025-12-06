@@ -121,8 +121,9 @@ def board_list(request):
 @csrf_exempt
 def board_detail(request, board_id):
     """
-    Обрабатывает GET и DELETE запросы для /boards/{boardId}
+    Обрабатывает GET, POST и DELETE запросы для /boards/{boardId}
     GET: Получить одну доску
+    POST: Обновить название и описание доски
     DELETE: Удалить доску
     """
     try:
@@ -191,6 +192,51 @@ def board_detail(request, board_id):
             board.delete()  # CASCADE удалит все связанные Board_Users
 
             return JsonResponse({'message': 'Board deleted successfully'}, status=200)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+
+    elif request.method == 'POST':
+        try:
+            board = get_object_or_404(Boards, id=board_uuid)
+            user_id = get_user_id_from_request(request)
+
+            if not user_id:
+                return JsonResponse({'error': 'User ID required'}, status=400)
+
+            try:
+                user = User.objects.get(id=user_id)
+            except User.DoesNotExist:
+                return JsonResponse({'error': 'User not found'}, status=404)
+
+            # Проверяем доступ пользователя к доске
+            has_access = Board_Users.objects.filter(
+                user_id=user,
+                board_id=board
+            ).exists()
+            if not has_access:
+                return JsonResponse({'error': 'Access denied'}, status=403)
+
+            # Получаем данные для обновления
+            data = json.loads(request.body)
+            title = data.get('title')
+            description = data.get('description')
+
+            # Обновляем поля, если они переданы
+            if title is not None:
+                board.title = title
+            if description is not None:
+                board.description = description
+
+            board.save()
+
+            return JsonResponse({
+                'id': str(board.id),
+                'title': board.title,
+                'description': board.description,
+                'message': 'Board updated successfully'
+            }, status=200)
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON'}, status=400)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)
 

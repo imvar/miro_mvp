@@ -101,16 +101,17 @@ export function BoardsList() {
         try {
             const response = await api.post(`/api/boards/${boardId}`, {
                 title: title,
-                description: description || '',
-                elements: []
+                description: description || ''
             });
 
-            const { board } = response.data;
+            // Сервер возвращает данные напрямую, без обертки board
+            const updatedBoard = response.data;
 
             setBoards(boards.map(b =>
                 b.id === boardId ? {
                     ...b,
-                    ...board,
+                    title: updatedBoard.title,
+                    description: updatedBoard.description,
                     updatedAt: new Date().toISOString()
                 } : b
             ));

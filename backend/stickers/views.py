@@ -10,7 +10,7 @@ from boards.models import Boards
 def board_stickers(request, board_id):
     """
     Обрабатывает GET и POST запросы для /boards/{boardId}/stickers
-    GET: Получить все стикеры доски
+    GET: Получить все стикеры доски с информацией о доске
     POST: Добавить стикер
     """
     if request.method == 'GET':
@@ -19,24 +19,43 @@ def board_stickers(request, board_id):
 
             stickers = Stickers.objects.filter(board_id=board_id)
 
-            stickers_list = []
+            # Преобразуем стикеры в формат, ожидаемый фронтендом
+            elements = []
             for sticker in stickers:
-                stickers_list.append({
+                elements.append({
                     'id': str(sticker.id),
+                    'type': 'sticker',
                     'content': sticker.content,
-                    'color': sticker.color,
-                    'x': sticker.x,
-                    'y': sticker.y,
-                    'width': sticker.width,
-                    'height': sticker.height,
-                    'z_index': sticker.z_index,
-                    'board_id': str(sticker.board_id.id)
+                    'style': {
+                        'backgroundColor': sticker.color,
+                        'left': f'{sticker.x}px',
+                        'top': f'{sticker.y}px',
+                        'width': f'{sticker.width}px',
+                        'height': f'{sticker.height}px',
+                        'zIndex': sticker.z_index
+                    },
+                    'data': {
+                        'color': sticker.color,
+                        'x': sticker.x,
+                        'y': sticker.y,
+                        'width': sticker.width,
+                        'height': sticker.height,
+                        'zIndex': sticker.z_index
+                    }
                 })
 
-            return JsonResponse(stickers_list, safe=False, status=200)
+            # Возвращаем данные в формате, ожидаемом фронтендом
+            return JsonResponse({
+                'board': {
+                    'id': str(board.id),
+                    'title': board.title,
+                    'description': board.description,
+                    'elements': elements
+                }
+            }, status=200)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
-    
+
     elif request.method == 'POST':
         try:
             data = json.loads(request.body)
@@ -172,7 +191,7 @@ def sticker_detail(request, sticker_id):
             return JsonResponse({'error': 'Invalid JSON'}, status=400)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)
-    
+
     elif request.method == 'DELETE':
         try:
             sticker = get_object_or_404(Stickers, id=sticker_id)

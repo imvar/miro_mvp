@@ -62,7 +62,8 @@ const loadBoards = async (): Promise<LoaderData> => {
 
   console.log('Boards response:', response.data); // Для отладки
 
-  return { boards: response.data.boards };
+  // Сервер возвращает массив досок напрямую, а не в обертке boards
+  return { boards: response.data };
 };
 
 // const loadBoard = async ({ params }: { params: any }): Promise<LoaderData> => {
