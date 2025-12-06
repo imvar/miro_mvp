@@ -35,7 +35,16 @@ def register(request):
         )
         user.save()
 
-        return JsonResponse({"message": "User registered successfully"}, status=201)
+        # Возвращаем токен и данные пользователя для автоматического входа
+        response_data = {
+            "token": "fake_jwt_token_here",
+            "user": {
+                "id": user.id,
+                "username": user.username
+            }
+        }
+
+        return JsonResponse(response_data, status=201)
 
     except json.JSONDecodeError:
         return JsonResponse({"error": "Invalid JSON"}, status=400)
@@ -72,9 +81,11 @@ def login(request):
 
         # TODO: Здесь позже можно вставить JWT
         response_data = {
-            "user_id": user.id,
-            "login": user.username,
-            "accessToken": "fake_jwt_token_here"
+            "token": "fake_jwt_token_here",
+            "user": {
+                "id": user.id,
+                "username": user.username
+            }
         }
 
         return JsonResponse(response_data, status=200)
