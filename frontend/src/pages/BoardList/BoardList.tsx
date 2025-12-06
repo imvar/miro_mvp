@@ -63,7 +63,7 @@ export function BoardsList() {
         membersCount: 1,
         updatedAt: new Date().toISOString()
       };
-      
+
       setBoards([newBoard, ...boards]);
     } catch (error) {
       console.error('Ошибка при создании доски:', error);
@@ -78,7 +78,7 @@ export function BoardsList() {
       await api.patch(`/api/boards/${boardId}`, {
         isStarred: !boards.find(b => b.id === boardId)?.isStarred
       });
-      
+
       // Обновляем локальное состояние
       setBoards(boards.map(board =>
         board.id === boardId ? { ...board, isStarred: !board.isStarred } : board
@@ -96,7 +96,7 @@ export function BoardsList() {
       console.error('Ошибка при удалении доски:', error);
     }
   };
-  
+
     const handleEdit = async (boardId: string, title: string, description?: string) => {
         try {
             const response = await api.post(`/api/boards/${boardId}`, {
@@ -104,14 +104,14 @@ export function BoardsList() {
                 description: description || '',
                 elements: []
             });
-            
+
             const { board } = response.data;
-            
+
             setBoards(boards.map(b =>
-                b.id === boardId ? { 
-                    ...b, 
-                    ...board, 
-                    updatedAt: new Date().toISOString() 
+                b.id === boardId ? {
+                    ...b,
+                    ...board,
+                    updatedAt: new Date().toISOString()
                 } : b
             ));
         } catch (error) {
@@ -132,7 +132,7 @@ export function BoardsList() {
               Всего досок: {boards.length}
             </Text>
           </div>
-          
+
           <Button
             leftSection={<IconPlus size={20} />}
             onClick={handleCreateBoard}

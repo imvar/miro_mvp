@@ -11,6 +11,7 @@ urlpatterns = [
 
     # Boards endpoints
     path('boards', views.boards_list_create, name='boards_list_create'),
+    path('boards/new', views.board_create_new, name='board_create_new'),
     path('boards/<str:board_id>', views.board_detail_delete, name='board_detail_delete'),
     path('boards/<str:board_id>/share', views.board_share, name='board_share'),
     path('boards/<str:board_id>/autosave', views.board_autosave, name='board_autosave'),

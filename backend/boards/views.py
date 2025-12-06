@@ -103,9 +103,11 @@ def board_list(request):
             board = Boards.objects.create_board(title=title, owner=user, description=description)
 
             return JsonResponse({
-                'id': str(board.id),
-                'title': board.title,
-                'description': board.description,
+                'board': {
+                    'id': str(board.id),
+                    'title': board.title,
+                    'description': board.description
+                },
                 'message': 'Board created successfully'
             }, status=201)
         except json.JSONDecodeError:

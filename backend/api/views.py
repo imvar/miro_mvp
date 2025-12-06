@@ -59,11 +59,25 @@ def auth_login(request):
     return auth_login_view(request)
 
 
+@csrf_exempt
 def boards_list_create(request):
-    """Handle boards list (GET) and create (POST)"""
-    return boards_list_create_view(request)
+    """Handle boards list (GET)"""
+    if request.method == 'GET':
+        return boards_list_create_view(request)
+    else:
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
 
 
+@csrf_exempt
+def board_create_new(request):
+    """Handle board creation for /boards/new (POST)"""
+    if request.method == 'POST':
+        return boards_list_create_view(request)
+    else:
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+
+@csrf_exempt
 def board_detail_delete(request, board_id):
     """Handle board detail (GET) and delete (DELETE)"""
     return board_detail_delete_view(request, board_id)
@@ -81,11 +95,13 @@ def board_autosave(request, board_id):
     return board_autosave_view(request, board_id)
 
 
+@csrf_exempt
 def board_stickers_list_create(request, board_id):
     """Handle board stickers list (GET) and create (POST)"""
     return board_stickers_list_create_view(request, board_id)
 
 
+@csrf_exempt
 def sticker_detail(request, sticker_id):
     """
     Handle sticker detail - PATCH and DELETE methods
