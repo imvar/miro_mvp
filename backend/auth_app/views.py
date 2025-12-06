@@ -1,53 +1,42 @@
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 import json
 
 
-@csrf_exempt
-@require_http_methods(["POST"])
+from django.shortcuts import render, redirect
+from django.contrib.auth.hashers import make_password, check_password
+from .forms import RegisterForm
+from .models import User
+
+
 def register(request):
-    """
-    Регистрация пользователя
-    POST /auth/register
-    """
-    try:
-        data = json.loads(request.body)
-        email = data.get('email')
-        password = data.get('password')
-        
-        # TODO: Implement user registration logic
-        # Validate input data
-        # Create user in database
-        
-        return JsonResponse({'message': 'User registered successfully'}, status=201)
-    except json.JSONDecodeError:
-        return JsonResponse({'error': 'Invalid JSON'}, status=400)
-    except Exception as e:
-        return JsonResponse({'error': str(e)}, status=400)
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            raw_password = form.cleaned_data["password"]
+            user.password = make_password(raw_password)  # сюда попадёт algorithm$salt$hash
+            user.save()
+            return redirect("auth_login")
+    else:
+        form = RegisterForm()
+    return render(request, "auth_app/register.html", {"form": form})
 
 
-@csrf_exempt
-@require_http_methods(["POST"])
 def login(request):
-    """
-    Вход в систему
-    POST /auth/login
-    """
-    try:
-        data = json.loads(request.body)
-        email = data.get('email')
-        password = data.get('password')
-        
-        # TODO: Implement login logic
-        # Validate credentials
-        # Generate JWT token
-        
-        response_data = {
-            'accessToken': 'fake_jwt_token_here'  # Replace with actual token
-        }
-        return JsonResponse(response_data, status=200)
-    except json.JSONDecodeError:
-        return JsonResponse({'error': 'Invalid JSON'}, status=400)
-    except Exception as e:
-        return JsonResponse({'error': str(e)}, status=400)
+    error = None
+    if request.method == "POST":
+        login_value = request.POST.get("login")
+        password = request.POST.get("password")
+        try:
+            user = User.objects.get(login=login_value)
+        except User.DoesNotExist:
+            user = None
+        if user and check_password(password, user.password):
+            # здесь обычно создают сессию, куку
+            return redirect("auth_register")
+        else:
+            error = "Неверный логин или пароль"
+    return render(request, "auth_app/login.html", {"error": error})
+
