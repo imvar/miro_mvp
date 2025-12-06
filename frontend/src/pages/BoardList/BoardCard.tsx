@@ -17,7 +17,6 @@ import {
   IconDotsVertical,
   IconEdit,
   IconLayoutBoard,
-  IconStar,
   IconTrash,
   IconUsers
 } from "@tabler/icons-react";
@@ -28,19 +27,17 @@ interface Board {
   title: string;
   updatedAt: string;
   description?: string;
-  isStarred?: boolean;
   membersCount?: number;
 }
 
 interface BoardCardProps {
   board: Board;
-  onStarToggle: (boardId: string) => void;
   onEdit: (boardId: string, title: string, description?: string) => void;
   onDelete: (boardId: string) => void;
 }
 
 export const BoardCard = (props: BoardCardProps) => {
-  const { board, onStarToggle, onEdit, onDelete } = props;
+  const { board, onEdit, onDelete } = props;
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const [isEditingDescription, setIsEditingDescription] = useState(false);
   const [editedTitle, setEditedTitle] = useState(board.title);
@@ -50,8 +47,8 @@ export const BoardCard = (props: BoardCardProps) => {
   const handleSaveEdit = async (field: 'title' | 'description' | 'both') => {
     const titleToSave = field === 'title' || field === 'both' ? editedTitle.trim() : board.title;
     const descriptionToSave = field === 'description' || field === 'both' ? editedDescription.trim() : board.description;
-    
-    const hasChanges = 
+
+    const hasChanges =
       (field === 'title' || field === 'both') && titleToSave !== board.title ||
       (field === 'description' || field === 'both') && descriptionToSave !== board.description;
 
@@ -165,23 +162,8 @@ export const BoardCard = (props: BoardCardProps) => {
               ДОСКА
             </Text>
           </Group>
-          
+
           <Group gap="xs">
-            <ActionIcon
-              variant="subtle"
-              size="sm"
-              onClick={(e) => {
-                e.preventDefault();
-                onStarToggle(board.id);
-              }}
-              color={board.isStarred ? 'yellow' : 'gray'}
-            >
-              <IconStar
-                size={16}
-                fill={board.isStarred ? 'currentColor' : 'none'}
-              />
-            </ActionIcon>
-            
             <Menu withinPortal position="bottom-end">
               <Menu.Target>
                 <ActionIcon
@@ -245,7 +227,7 @@ export const BoardCard = (props: BoardCardProps) => {
             <Title
               order={4}
               lineClamp={2}
-              style={{ 
+              style={{
                 minHeight: '3.5rem',
                 cursor: 'pointer'
               }}
@@ -255,7 +237,7 @@ export const BoardCard = (props: BoardCardProps) => {
             </Title>
           </Link>
         )}
-        
+
         {isEditingDescription ? (
           <Textarea
             value={editedDescription}
@@ -287,7 +269,7 @@ export const BoardCard = (props: BoardCardProps) => {
             <Text
               size="sm"
               c="dimmed"
-              style={{ 
+              style={{
                 cursor: 'pointer',
                 minHeight: '2.5rem',
                 color: 'var(--mantine-color-gray-5)'
@@ -307,7 +289,7 @@ export const BoardCard = (props: BoardCardProps) => {
             {formatDate(board.updatedAt)}
           </Text>
         </Group>
-        
+
         <Group gap="xs">
           <IconUsers size={14} />
           <Text size="xs" c="dimmed">

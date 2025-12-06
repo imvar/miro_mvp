@@ -28,7 +28,6 @@ interface Board {
   title: string;
   updatedAt: string;
   description?: string;
-  isStarred?: boolean;
   membersCount?: number;
 }
 
@@ -59,7 +58,6 @@ export function BoardsList() {
 
       const newBoard: Board = {
         ...board,
-        isStarred: false,
         membersCount: 1,
         updatedAt: new Date().toISOString()
       };
@@ -69,22 +67,6 @@ export function BoardsList() {
       console.error('Ошибка при создании доски:', error);
     } finally {
       setLoading(false);
-    }
-  };
-
-  const toggleStar = async (boardId: string) => {
-    try {
-      // Отправляем запрос на сервер для обновления
-      await api.patch(`/api/boards/${boardId}`, {
-        isStarred: !boards.find(b => b.id === boardId)?.isStarred
-      });
-
-      // Обновляем локальное состояние
-      setBoards(boards.map(board =>
-        board.id === boardId ? { ...board, isStarred: !board.isStarred } : board
-      ));
-    } catch (error) {
-      console.error('Ошибка при обновлении избранного:', error);
     }
   };
 
@@ -192,7 +174,6 @@ export function BoardsList() {
               <BoardCard
                 key={board.id}
                 board={board}
-                onStarToggle={toggleStar}
                 onEdit={handleEdit}
                 onDelete={handleDelete}
               />
