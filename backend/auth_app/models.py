@@ -3,13 +3,12 @@ import hashlib
 from django.db import models, IntegrityError
 import uuid
 
-class Users(models.Model):
+class User(models.Model):
     id = models.UUIDField(
         default=uuid.uuid4,
         primary_key=True,
         unique=True)
-    username = models.CharField(max_length=100,
-                                unique=True)
+    username = models.CharField(max_length=100, unique=True)
     password = models.CharField(max_length=64)
 
 class UsersManager(models.Manager):
