@@ -46,8 +46,8 @@ interface Board {
 export function Layout() {
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
   const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
-  const [recentBoards, setRecentBoards] = useState<Board[]>([]);
-  const [starredBoards, setStarredBoards] = useState<Board[]>([]);
+  // const [recentBoards, setRecentBoards] = useState<Board[]>([]);
+  // const [starredBoards, setStarredBoards] = useState<Board[]>([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
@@ -63,27 +63,27 @@ export function Layout() {
     try {
       setLoading(true);
       
-      // Загружаем последние доски
-      const recentResponse = await api.get('/api/recent', {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      });
+      // // Загружаем последние доски
+      // const recentResponse = await api.get('/api/recent', {
+      //   headers: {
+      //     'Authorization': `Bearer ${token}`,
+      //   },
+      // });
       
-      if (recentResponse.status === 200) {
-        setRecentBoards(recentResponse.data.boards || []);
-      }
+      // if (recentResponse.status === 200) {
+      //   setRecentBoards(recentResponse.data.boards || []);
+      // }
       
-      // Загружаем избранные доски
-      const starredResponse = await api.get('/api/starred', {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      });
+      // // Загружаем избранные доски
+      // const starredResponse = await api.get('/api/starred', {
+      //   headers: {
+      //     'Authorization': `Bearer ${token}`,
+      //   },
+      // });
       
-      if (starredResponse.status === 200) {
-        setStarredBoards(starredResponse.data.boards || []);
-      }
+      // if (starredResponse.status === 200) {
+      //   setStarredBoards(starredResponse.data.boards || []);
+      // }
     } catch (error) {
       console.error('Ошибка при загрузке досок:', error);
     } finally {
@@ -325,45 +325,9 @@ export function Layout() {
               </Button>
             </Group>
 
-            {/* Избранные доски */}
-            {!loading && starredBoards.length > 0 && (
-              <>
-                <Text size="sm" fw={500} c="dimmed" mt="xs">ИЗБРАННОЕ</Text>
-                {starredBoards.map((board) => (
-                  <MantineNavLink
-                    key={board.id}
-                    component={NavLink}
-                    to={`/board/${board.id}`}
-                    label={board.title}
-                    leftSection={<IconStar size={16} color="yellow" fill="yellow" />}
-                    rightSection={<IconChevronRight size={16} />}
-                    variant="light"
-                  />
-                ))}
-              </>
-            )}
 
-            {/* Недавние доски */}
-            {!loading && recentBoards.length > 0 && (
-              <>
-                <Text size="sm" fw={500} c="dimmed" mt="xs">ПОСЛЕДНИЕ</Text>
-                {recentBoards.map((board) => (
-                  <MantineNavLink
-                    key={board.id}
-                    component={NavLink}
-                    to={`/board/${board.id}`}
-                    label={
-                      <Box>
-                        <Text size="sm">{board.title}</Text>
-                        <Text size="xs" c="dimmed">{formatDate(board.updated_at)}</Text>
-                      </Box>
-                    }
-                    leftSection={<IconLayoutBoard size={16} />}
-                    rightSection={<IconChevronRight size={16} />}
-                  />
-                ))}
-              </>
-            )}
+            {/* recent&starred */}
+
 
             {/* Все доски */}
             <MantineNavLink
@@ -412,3 +376,45 @@ export function Layout() {
 }
 
 export default Layout;
+
+
+
+            // {/* Избранные доски */}
+            // {!loading && starredBoards.length > 0 && (
+            //   <>
+            //     <Text size="sm" fw={500} c="dimmed" mt="xs">ИЗБРАННОЕ</Text>
+            //     {starredBoards.map((board) => (
+            //       <MantineNavLink
+            //         key={board.id}
+            //         component={NavLink}
+            //         to={`/board/${board.id}`}
+            //         label={board.title}
+            //         leftSection={<IconStar size={16} color="yellow" fill="yellow" />}
+            //         rightSection={<IconChevronRight size={16} />}
+            //         variant="light"
+            //       />
+            //     ))}
+            //   </>
+            // )}
+
+            // {/* Недавние доски */}
+            // {!loading && recentBoards.length > 0 && (
+            //   <>
+            //     <Text size="sm" fw={500} c="dimmed" mt="xs">ПОСЛЕДНИЕ</Text>
+            //     {recentBoards.map((board) => (
+            //       <MantineNavLink
+            //         key={board.id}
+            //         component={NavLink}
+            //         to={`/board/${board.id}`}
+            //         label={
+            //           <Box>
+            //             <Text size="sm">{board.title}</Text>
+            //             <Text size="xs" c="dimmed">{formatDate(board.updated_at)}</Text>
+            //           </Box>
+            //         }
+            //         leftSection={<IconLayoutBoard size={16} />}
+            //         rightSection={<IconChevronRight size={16} />}
+            //       />
+            //     ))}
+            //   </>
+            // )}
