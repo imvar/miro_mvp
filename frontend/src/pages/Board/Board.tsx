@@ -235,6 +235,25 @@ export function Board() {
     ));
   };
 
+  // Обновление цвета стикера
+  const updateStickerColor = (stickerId: string, color: string) => {
+  setStickers(stickers.map(sticker => 
+    sticker.id === stickerId 
+      ? { 
+          ...sticker, 
+          data: {
+            ...sticker.data,
+            color
+          },
+          style: {
+            ...sticker.style,
+            backgroundColor: color
+          }
+        }
+      : sticker
+  ));
+};
+
   // Удаление стикера
   const deleteSticker = (stickerId: string) => {
     setStickers(stickers.filter(sticker => sticker.id !== stickerId));
@@ -444,6 +463,7 @@ export function Board() {
             isSelected={selectedSticker === sticker.id}
             onSelect={setSelectedSticker}
             onUpdateContent={updateStickerContent}
+            onUpdateColor={updateStickerColor} // Добавьте эту строку
             onDelete={deleteSticker}
             onPositionChange={updateStickerPosition}
             onResize={updateStickerSize} 
