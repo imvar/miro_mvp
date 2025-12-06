@@ -3,7 +3,7 @@ import uuid
 from django.db import models
 
 from backend import *
-from auth_app.models import Users
+from auth_app.models import User
 
 
 class Boards(models.Model):
@@ -17,7 +17,7 @@ class Boards(models.Model):
 
 class Board_Users(models.Model):
     user_id = models.ForeignKey(
-        Users,
+        User,
         on_delete=models.CASCADE,  # Обязательный парамет
     )
     board_id = models.ForeignKey(
