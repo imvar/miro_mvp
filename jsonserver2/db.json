@@ -1,0 +1,283 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "password_hash": "$2a$10$N9qo8uLOickgx2ZMRZoMye3Zg6C1q1z2YbL2lD3JQ7zq8nV5vJ5XK"
+    },
+    {
+      "id": 2,
+      "username": "user1",
+      "password_hash": "$2a$10$N9qo8uLOickgx2ZMRZoMye3Zg6C1q1z2YbL2lD3JQ7zq8nV5vJ5XK"
+    },
+    {
+      "id": 1765010526286,
+      "password_hash": "admin123"
+    },
+    {
+      "id": 1765012648723,
+      "username": "new",
+      "password_hash": "aqamir3d"
+    },
+    {
+      "id": 1765013897068,
+      "username": "asdsadasd",
+      "password_hash": "asdasdasd"
+    },
+    {
+      "id": 1765014203297,
+      "username": "asd",
+      "password_hash": "asdasd"
+    },
+    {
+      "id": 1765020985637,
+      "username": "sladkfsd",
+      "password_hash": "asdklfsdaf"
+    },
+    {
+      "id": 1765021024880,
+      "username": "boris001",
+      "password_hash": "aqamir3d"
+    }
+  ],
+  "boards": [
+    {
+      "id": 1765020789137,
+      "title": "Новая Новое имя",
+      "description": "фыва фыва фыва",
+      "updated_at": "2024-01-15T10:30:00.000Z",
+      "created_at": "2024-01-10T14:20:00.000Z",
+      "is_starred": true
+    },
+    {
+      "id": 1765020809829,
+      "title": "ввавава",
+      "description": "Описание",
+      "updated_at": "2024-01-15T10:30:00.000Z",
+      "created_at": "2024-01-10T14:20:00.000Z",
+      "is_starred": false
+    },
+    {
+      "id": 1765022574142,
+      "title": "Новая доска",
+      "updated_at": "2024-01-15T10:30:00.000Z",
+      "created_at": "2024-01-10T14:20:00.000Z",
+      "description": "Описание",
+      "isStarred": true
+    },
+    {
+      "id": 1765022580343,
+      "title": "Новая доска",
+      "description": "Описание",
+      "updated_at": "2024-01-15T10:30:00.000Z",
+      "created_at": "2024-01-10T14:20:00.000Z",
+      "is_starred": true,
+      "isStarred": false
+    },
+    {
+      "id": 1765022582057,
+      "title": "Новая доска",
+      "updated_at": "2024-01-15T10:30:00.000Z",
+      "created_at": "2024-01-10T14:20:00.000Z",
+      "description": "Описание"
+    },
+    {
+      "id": 1765022626808,
+      "title": "Новая доска",
+      "updated_at": "2024-01-15T10:30:00.000Z",
+      "created_at": "2024-01-10T14:20:00.000Z",
+      "description": "Описание"
+    },
+    {
+      "id": 1765023847252,
+      "title": "Новая доска",
+      "description": "Описание"
+    }
+  ],
+  "stickers": [
+    {
+      "id": 1765018381248,
+      "board_id": 1,
+      "content": "Новый стикер",
+      "color": "#ffeb3b",
+      "x": 50,
+      "y": 50,
+      "width": 150,
+      "height": 150,
+      "z_index": 0
+    },
+    {
+      "id": 1765019230731,
+      "board_id": 1765014906931,
+      "content": "Новый стикер",
+      "color": "#ffeb3b",
+      "x": 61,
+      "y": 88,
+      "width": 150,
+      "height": 150,
+      "z_index": 0
+    },
+    {
+      "id": 1765019207860,
+      "board_id": 4,
+      "content": "Новый стикер",
+      "color": "#ffeb3b",
+      "x": 42,
+      "y": 34,
+      "width": 201,
+      "height": 109,
+      "z_index": 0
+    },
+    {
+      "id": 1765019210563,
+      "board_id": 4,
+      "content": "Новый фывфывфыв",
+      "color": "#ffeb3b",
+      "x": 370,
+      "y": 55,
+      "width": 244,
+      "height": 202,
+      "z_index": 1
+    },
+    {
+      "id": 1765019207860,
+      "board_id": 1765019603658,
+      "content": "Новый стикер",
+      "color": "#ffeb3b",
+      "x": 42,
+      "y": 34,
+      "width": 201,
+      "height": 109,
+      "z_index": 0
+    },
+    {
+      "id": 1765019210563,
+      "board_id": 1765019603658,
+      "content": "Новый фывфывфыв",
+      "color": "#ffeb3b",
+      "x": 370,
+      "y": 55,
+      "width": 244,
+      "height": 202,
+      "z_index": 1
+    },
+    {
+      "id": 1765019207860,
+      "board_id": 1765019609060,
+      "content": "Новый стикер",
+      "color": "#ffeb3b",
+      "x": 42,
+      "y": 34,
+      "width": 201,
+      "height": 109,
+      "z_index": 0
+    },
+    {
+      "id": 1765019210563,
+      "board_id": 1765019609060,
+      "content": "Новый фывфывфыв",
+      "color": "#ffeb3b",
+      "x": 370,
+      "y": 55,
+      "width": 244,
+      "height": 202,
+      "z_index": 1
+    },
+    {
+      "id": 1765020823059,
+      "board_id": 1765020789137,
+      "content": "щфщывлаожфывлао\n",
+      "color": "#ffeb3b",
+      "x": 50,
+      "y": 50,
+      "width": 392,
+      "height": 182,
+      "z_index": 0
+    },
+    {
+      "id": 1765020831514,
+      "board_id": 1765020789137,
+      "content": "Новый стикерфыва фыва",
+      "color": "#ffeb3b",
+      "x": 28,
+      "y": 322,
+      "width": 329,
+      "height": 180,
+      "z_index": 1
+    },
+    {
+      "id": 1765020851010,
+      "board_id": 1765020809829,
+      "content": "Новыйфыва ",
+      "color": "#ffeb3b",
+      "x": 50,
+      "y": 50,
+      "width": 417,
+      "height": 196,
+      "z_index": 0
+    },
+    {
+      "id": 1765021456007,
+      "board_id": 1765021058103,
+      "content": "Новый стикер",
+      "color": "#ffeb3b",
+      "x": 50,
+      "y": 50,
+      "width": 150,
+      "height": 150,
+      "z_index": 0
+    },
+    {
+      "id": 1765021505583,
+      "board_id": 1765021058103,
+      "content": "Новый стикер",
+      "color": "#ffeb3b",
+      "x": 272,
+      "y": 59,
+      "width": 163,
+      "height": 169,
+      "z_index": 1
+    },
+    {
+      "id": 1765023838010,
+      "board_id": 1765022574142,
+      "content": "Новый стикер",
+      "color": "#ffeb3b",
+      "x": 50,
+      "y": 50,
+      "width": 150,
+      "height": 150,
+      "z_index": 0
+    }
+  ],
+  "board_users": [
+    {
+      "board_id": 1765020789137,
+      "user_id": 1
+    },
+    {
+      "board_id": 1765020809829,
+      "user_id": 1
+    },
+    {
+      "board_id": 1765022574142,
+      "user_id": 1765021024880
+    },
+    {
+      "board_id": 1765022580343,
+      "user_id": 1765021024880
+    },
+    {
+      "board_id": 1765022582057,
+      "user_id": 1765021024880
+    },
+    {
+      "board_id": 1765022626808,
+      "user_id": 1765021024880
+    },
+    {
+      "board_id": 1765023847252,
+      "user_id": 1765021024880
+    }
+  ]
+}
