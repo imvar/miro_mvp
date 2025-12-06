@@ -1,6 +1,9 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.hashers import check_password
+from django.conf import settings
 import json
 
 # Import views from various apps
@@ -10,10 +13,39 @@ from boards.views import board_list as boards_list_create_view
 from boards.views import board_detail as board_detail_delete_view
 from boards.views import share_board as board_share_view
 from boards.views import autosave_board as board_autosave_view
+from boards.views import get_user_id_from_request
 from stickers.views import board_stickers as board_stickers_list_create_view
 from stickers.views import sticker_detail as sticker_detail_view
+from auth_app.models import User
 
 from boards.tests import create_board
+
+
+def get_user_profile(request):
+    """Handle GET /api/user/profile"""
+    # Extract token from Authorization header (Bearer token)
+    try:
+        user_id = get_user_id_from_request(request)
+
+        if not user_id:
+            return JsonResponse({'error': 'Invalid token: no user ID'}, status=401)
+
+        # Get the user from database
+        try:
+            user = User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            return JsonResponse({'error': 'User not found'}, status=404)
+
+        # Return user profile
+        return JsonResponse({
+            'id': str(user.id),
+            'username': user.username,
+            'name': user.username  # для совместимости с фронтендом
+        })
+
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=401)
+
 
 @csrf_exempt
 def auth_register(request):

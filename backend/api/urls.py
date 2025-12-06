@@ -6,6 +6,9 @@ urlpatterns = [
     path('auth/register', views.auth_register, name='auth_register'),
     path('auth/login', views.auth_login, name='auth_login'),
 
+    # User profile endpoint
+    path('user/profile', views.get_user_profile, name='user_profile'),
+
     # Boards endpoints
     path('boards', views.boards_list_create, name='boards_list_create'),
     path('boards/<str:board_id>', views.board_detail_delete, name='board_detail_delete'),
